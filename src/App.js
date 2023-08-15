@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { CssBaseline, createTheme } from '@mui/material';
 import './App.css';
+import Header from './components/Header';
+import { ThemeProvider } from '@emotion/react';
+import { useContext } from 'react';
+import { ThemeContext } from './contexts/Themecontext';
 
 function App() {
+
+  const { isDarkMode } = useContext(ThemeContext);
+
+  const themeMode = createTheme({
+    palette: {
+      mode: isDarkMode ? 'dark' : 'light',
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={themeMode}>
+      <CssBaseline />
+      <div className="App">
+        <Header />
+        <section>
+          I am section.
+        </section>
+      </div>
+    </ThemeProvider>
   );
 }
 
