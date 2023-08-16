@@ -1,11 +1,12 @@
 import { useState, useContext } from 'react';
-import { AppBar, Box, FormControlLabel, Menu, MenuItem, FormGroup, Switch, IconButton, Typography, Toolbar, ListItemIcon, ListItemText } from '@mui/material';
+import { AppBar, Box, FormControlLabel, Menu, MenuItem, FormGroup, Switch, IconButton, Typography, Toolbar, ListItemIcon, ListItemText, Button } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { ThemeContext } from '../contexts/Themecontext';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import LogoutIcon from '@mui/icons-material/Logout';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 
 export default function Header() {
 
@@ -42,9 +43,12 @@ export default function Header() {
             </FormGroup>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontFamily: 'fantasy' }}>
+                    <Typography variant="h4" component="div" sx={{ 'flexGrow': 1, 'fontFamily': 'fantasy' }}>
                         MyBlogs
                     </Typography>
+                    <Button variant='contained' color='warning' sx={{ 'borderRadius': '20px' }} startIcon={<DriveFileRenameOutlineOutlinedIcon />}>
+                        Write
+                    </Button>
 
                     {auth && (
                         <div>
