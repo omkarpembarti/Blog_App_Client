@@ -4,11 +4,12 @@ import Header from './components/Header';
 import { ThemeProvider } from '@emotion/react';
 import { useContext } from 'react';
 import { ThemeContext } from './contexts/Themecontext';
+import BlogsContainer from './components/BlogsContainer';
+import { Route, Routes } from 'react-router';
 
 function App() {
 
   const { isDarkMode } = useContext(ThemeContext);
-
   const themeMode = createTheme({
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
@@ -20,9 +21,19 @@ function App() {
       <CssBaseline />
       <div className="App">
         <Header />
-        <section>
-          I am section.
-        </section>
+        <Routes>
+          <Route path='/' element={<BlogsContainer />} exact />
+
+          <Route path='/addBlog' element={<>
+            I am write post container
+          </>} />
+
+          <Route path='/myblogs' element={<>
+            I am My blog container
+          </>} />
+
+        </Routes>
+
       </div>
     </ThemeProvider>
   );

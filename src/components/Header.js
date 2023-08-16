@@ -1,7 +1,11 @@
 import { useState, useContext } from 'react';
-import { AppBar, Box, FormControlLabel, Menu, MenuItem, FormGroup, Switch, IconButton, Typography, Toolbar } from '@mui/material';
+import { AppBar, Box, FormControlLabel, Menu, MenuItem, FormGroup, Switch, IconButton, Typography, Toolbar, ListItemIcon, ListItemText } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { ThemeContext } from '../contexts/Themecontext';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import LogoutIcon from '@mui/icons-material/Logout';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 export default function Header() {
 
@@ -41,15 +45,7 @@ export default function Header() {
                     <Typography variant="h4" component="div" sx={{ flexGrow: 1, fontFamily: 'fantasy' }}>
                         MyBlogs
                     </Typography>
-                    <FormGroup>
-                        <FormControlLabel control={
-                            <Switch
-                                checked={isDarkMode}
-                                onChange={toggleTheme}
-                                color='warning'
-                            />}
-                            label="Dark" />
-                    </FormGroup>
+
                     {auth && (
                         <div>
                             <IconButton
@@ -66,10 +62,10 @@ export default function Header() {
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
                                 anchorOrigin={{
-                                    vertical: 'top',
+                                    vertical: 'bottom',
                                     horizontal: 'right',
                                 }}
-                                keepMounted
+
                                 transformOrigin={{
                                     vertical: 'top',
                                     horizontal: 'right',
@@ -78,8 +74,31 @@ export default function Header() {
                                 onClose={handleClose}
                             >
 
-                                <MenuItem onClick={handleClose}>My Account</MenuItem>
-                                <MenuItem onClick={handleClose}>Logout</MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <ListItemIcon>
+                                        <AutoStoriesIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        My Blogs
+                                    </ListItemText>
+                                </MenuItem>
+                                <MenuItem onClick={() => { toggleTheme(); handleClose() }}>
+                                    <ListItemIcon>
+                                        {isDarkMode ? <LightModeIcon /> : <DarkModeIcon />}
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        {isDarkMode ? "Light Mode" : "Dark Mode"}
+                                    </ListItemText>
+                                </MenuItem>
+                                <MenuItem onClick={handleClose}>
+                                    <ListItemIcon>
+                                        <LogoutIcon />
+                                    </ListItemIcon>
+                                    <ListItemText>
+                                        Logout
+                                    </ListItemText>
+                                </MenuItem>
+
                             </Menu>
                         </div>
                     )}
