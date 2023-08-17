@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { ThemeContext } from './contexts/Themecontext';
 import BlogsContainer from './components/BlogsContainer';
 import { Route, Routes } from 'react-router';
+import NewBlog from './components/NewBlog';
 
 function App() {
 
@@ -24,9 +25,7 @@ function App() {
         <Routes>
           <Route path='/' element={<BlogsContainer />} exact />
 
-          <Route path='/addBlog' element={<>
-            I am write post container
-          </>} />
+          <Route path='/addBlog' element={<NewBlog />} />
 
           <Route path='/myblogs' element={<>
             I am My blog container
