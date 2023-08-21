@@ -7,14 +7,13 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import '../GlobalCss_MUI.css';
 import { CardActionArea, CardActions } from '@mui/material';
-import LikeCommentCard from './LikeCommentCard';
 
 export default function Blog() {
 
 
     return (
 
-        <Card variant='elevation' sx={{ borderRadius: '16px' }} raised={true}>
+        <Card variant='elevation' sx={{ borderRadius: '16px', border: '1px solid dodgerblue' }} raised={true}>
             <CardActionArea>
                 <CardHeader
                     avatar={
