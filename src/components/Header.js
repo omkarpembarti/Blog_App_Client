@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect, useRef } from 'react';
-import { AppBar, Box, FormControlLabel, Menu, MenuItem, FormGroup, Switch, IconButton, Typography, Toolbar, ListItemIcon, ListItemText, Button, Divider } from '@mui/material';
+import { AppBar, Box, Menu, MenuItem, IconButton, Typography, Toolbar, ListItemIcon, ListItemText, Button, Divider } from '@mui/material';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { ThemeContext } from '../contexts/Themecontext';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router';
 
 export default function Header() {
 
-    const [auth, setAuth] = useState(true);
+    // const [auth, setAuth] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
     const theme = useContext(ThemeContext);
     const { isDarkMode, toggleTheme } = theme;
@@ -31,9 +31,9 @@ export default function Header() {
         navigate('/addBlog');
     }
 
-    const handleChange = (event) => {
-        setAuth(event.target.checked);
-    };
+    // const handleChange = (event) => {
+    //     setAuth(event.target.checked);
+    // };
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -45,18 +45,7 @@ export default function Header() {
 
     return (
         <Box sx={{ flexGrow: 1 }} >
-            <FormGroup>
-                <FormControlLabel
-                    control={
-                        <Switch
-                            checked={auth}
-                            onChange={handleChange}
-                            aria-label="login switch"
-                        />
-                    }
-                    label={auth ? 'Logout' : 'Login'}
-                />
-            </FormGroup>
+
             <AppBar position="static">
                 <Toolbar>
                     <Typography onClick={() => navigate('/')} variant="h4" component="div" sx={{ 'flexGrow': 1, 'fontFamily': 'fantasy' }}>
@@ -72,7 +61,7 @@ export default function Header() {
                         Write
                     </Button>
 
-                    {auth && (
+                    {(
                         <div>
                             <IconButton
                                 size="large"

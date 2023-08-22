@@ -14,7 +14,7 @@ import Login from './Routes/Login';
 function App() {
 
   const { isDarkMode } = useContext(ThemeContext);
-  const [login, setLogin] = useState(false);
+  const [login, setLogin] = useState(true);
   const themeMode = createTheme({
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
