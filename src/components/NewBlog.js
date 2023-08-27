@@ -1,7 +1,5 @@
-
-import styled from '@emotion/styled';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { Box, Button, Container, Paper, Stack, TextField, Typography } from '@mui/material';
+import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react'
 
 const NewBlog = () => {
@@ -9,12 +7,6 @@ const NewBlog = () => {
     const [content, setContent] = useState('');
     const [image, setImage] = useState()
     const [imageName, setImageName] = useState('No file chosen')
-
-
-
-
-
-
 
     const containerStyle = {
         display: 'flex',
