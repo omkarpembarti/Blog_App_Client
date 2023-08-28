@@ -6,14 +6,20 @@ import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import '../GlobalCss_MUI.css';
-import { CardActionArea, CardActions } from '@mui/material';
+import { CardActionArea, CardMedia } from '@mui/material';
+import './BlogStyle.css';
 
 export default function Blog() {
 
 
+    const cardStyle = {
+        'width': '100%', /* Set the width of the container */
+        'display': 'flex',
+        "flex-direction": 'column'
+    }
     return (
 
-        <Card variant='elevation' sx={{ borderRadius: '16px', border: '1px solid dodgerblue' }} raised={true}>
+        <Card variant='elevation' sx={{ borderRadius: '16px', maxHeight: '400px', width: '330px' }} raised={true}>
             <CardActionArea>
                 <CardHeader
                     avatar={
@@ -21,10 +27,20 @@ export default function Blog() {
                             OP
                         </Avatar>
                     }
-                    title="Shrimp and Chorizo Paella . 15 Aug"
+
+                    title="Shrimp and Chorizo Paella"
+                    subheader="September 14, 2016"
+                    subheaderTypographyProps={{ textAlign: 'start' }}
                 />
-                <CardContent>
-                    <Typography align='left' component='div' >
+                <CardMedia
+                    component="img"
+                    sx={{ width: '100%', height: '150px' }}
+                    image={require('./live-from-space.jpg')}
+                    alt="Live from space album cover"
+                />
+                <CardContent sx={cardStyle}>
+                    <Typography align='justify' component='div' variant='body2' className='cardContent-body'>
+                        {/* <div style={typoStyle}> */}
                         This impressive paella is a perfect party dish and a fun meal to cook
                         together with your guests. Add 1 cup of frozen peas along with the mussels,
                         if you like.This impressive paella is a perfect party dish and a fun meal to cook
@@ -34,16 +50,14 @@ export default function Blog() {
                         if you like.This impressive paella is a perfect party dish and a fun meal to cook
                         together with your guests. Add 1 cup of frozen peas along with the mussels,
                         if you like.
-
+                        {/* </div> */}
                     </Typography>
                 </CardContent>
-            </CardActionArea>
-            {/* <CardActions >
-                <>
-                    <LikeCommentCard />
-                </>
-            </CardActions> */}
 
-        </Card>
+
+            </CardActionArea>
+
+
+        </Card >
     );
 }
