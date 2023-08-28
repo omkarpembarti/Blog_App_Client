@@ -15,7 +15,7 @@ export default function Blog() {
     const cardStyle = {
         'width': '100%', /* Set the width of the container */
         'display': 'flex',
-        "flex-direction": 'column'
+        "flexDirection": 'column'
     }
     return (
 

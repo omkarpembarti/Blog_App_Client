@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 const UserDataContext = ({ children }) => {
     const [userInfo, setUserInfo] = useState({
+        name: '',
         userName: ''
     });
     // const setUserInfoWrap = (param) => {
