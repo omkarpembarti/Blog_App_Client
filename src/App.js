@@ -34,26 +34,21 @@ function App() {
   }
 
   return (
-    <ThemeProvider theme={themeMode}>
-      <UserDataContext>
-        <CssBaseline />
-        <div className="App">
+    <div className="App">
+      <ThemeProvider theme={themeMode}>
+        <UserDataContext>
+          <CssBaseline />
           {isUserAuthenticated && <Header setUserAuthenticated={setUserAuthenticated} />}
           <Routes>
 
             <Route path='/login' element={<Login setUserAuthenticated={setUserAuthenticated} />} exact />
-
-            <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />} exact >
+            <Route path='/register' element={<Register />} exact />
+            <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />}>
               <Route path='/' element={<BlogsContainer />} exact />
-              <Route path='/register' element={<Register />} exact />
-              <Route path='/addBlog' element={<NewBlog />} />
-              <Route path='/myblogs' element={<>I am My blog container</>} />
+              <Route path='/addBlog' element={<NewBlog />} exact />
+              <Route path='/myblogs' element={<>I am My blog container</>} exact />
             </Route>
             {/*
-               
-
-
-              
               <Route path='/register' element={<PrivateRoute />} exact>
                 <Register />
                 <Route />
@@ -66,10 +61,9 @@ function App() {
   */}
 
           </Routes>
-
-        </div>
-      </UserDataContext>
-    </ThemeProvider>
+        </UserDataContext>
+      </ThemeProvider>
+    </div>
   );
 }
 

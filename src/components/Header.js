@@ -9,9 +9,9 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import { useLocation, useNavigate } from 'react-router';
 
-export default function Header() {
+export default function Header({ setUserAuthenticated }) {
 
-    // const [auth, setAuth] = useState(true);
+
     const [anchorEl, setAnchorEl] = useState(null);
     const theme = useContext(ThemeContext);
     const { isDarkMode, toggleTheme } = theme;
@@ -31,9 +31,11 @@ export default function Header() {
         navigate('/addBlog');
     }
 
-    // const handleChange = (event) => {
-    //     setAuth(event.target.checked);
-    // };
+    const onBtnLogout = () => {
+        handleClose();
+        setUserAuthenticated(false);
+    }
+
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -107,7 +109,7 @@ export default function Header() {
                                     </ListItemText>
                                 </MenuItem>
                                 <Divider />
-                                <MenuItem onClick={handleClose}>
+                                <MenuItem onClick={onBtnLogout}>
                                     <ListItemIcon>
                                         <LogoutIcon />
                                     </ListItemIcon>

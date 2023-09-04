@@ -1,29 +1,76 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
+import { UserContext } from '../contexts/UserDataContext';
+import { API } from '../Services/api';
+import axios from 'axios';
+
+const newBlogData = {
+    title: '',
+    content: '',
+    imageURL: '',
+    username: '',
+    createdDate: new Date()
+}
 
 const NewBlog = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const [image, setImage] = useState()
-    const [imageName, setImageName] = useState('No file chosen')
-
+    const [image, setImage] = useState('');
+    const [imageName, setImageName] = useState('No file chosen');
+    const [blogData, setBlogData] = useState(newBlogData);
+    const { userInfo } = useContext(UserContext);
+    //userInfo.userName
     const containerStyle = {
         display: 'flex',
         flexDirection: 'column',
         gap: '15px',
-        //border: 'solid 1px black',
         marginTop: '15px',
         padding: '10px 0px 10px 0px',
         boxShadow: 15,
         borderRadius: 3
-
-
     };
+
+    useEffect(() => {
+        const getImage = async () => {
+
+            if (image) {
+                const formdata = new FormData();
+                formdata.append("name", imageName);
+                formdata.append("file", image);
+
+
+                const response = await axios.post('http://localhost:6000/blog/publishImage',
+                    formdata,
+                    {
+                        'headers': {
+                            'Access-Control-Allow-Origin': '*',
+                            'content-Type': 'multipart/form-data'
+                        }
+                    });
+                const imageURL = response.data;
+                setBlogData((blogData) => ({ ...blogData, 'username': userInfo.userName, imageURL }));
+            }
+        }
+        getImage();
+    }, [image]);
+
 
     const onImageUpload = (e) => {
         setImage(e.target.files[0]);
         setImageName(e.target.files[0].name);
+    }
+
+    const onPublishClick = () => {
+        try {
+
+            const response = API.publishBlog(blogData);
+            //API call
+        }
+        catch (e) { }
+    }
+
+
+    const handleTextChange = (e) => {
+        setBlogData((blogData) => ({ ...blogData, [e.target.name]: e.target.value }))
     }
 
     return (
@@ -31,15 +78,15 @@ const NewBlog = () => {
         <Container maxWidth='md' sx={containerStyle}>
 
             <TextField
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                name='title'
+                onChange={handleTextChange}
                 label="Title"
                 variant="outlined"
                 required
             />
             <TextField
-                value={content}
-                onChange={(e) => setContent(e.target.value)}
+                name='content'
+                onChange={handleTextChange}
                 label="Body"
                 variant="outlined"
                 multiline
@@ -66,7 +113,7 @@ const NewBlog = () => {
 
             <Stack direction='row'>
                 <Button variant='contained' color='error'>Cancel</Button>
-                <Button variant='contained' color='success'>Publish</Button>
+                <Button variant='contained' color='success' onClick={onPublishClick}>Publish</Button>
             </Stack>
 
 
