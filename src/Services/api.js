@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { SERVICE_URLS } from '../constants/configs';
+import { getAccessToken } from '../utils/comman';
 
 const URI = 'http://localhost:6000';
 
@@ -39,6 +40,9 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
             url: value.url,
             responseType: value.responseType,
             data: body,
+            headers: {
+                Authorization: getAccessToken()
+            },
 
             onUploadProgress: function (progressEvent) {
                 if (showUploadProgress) {

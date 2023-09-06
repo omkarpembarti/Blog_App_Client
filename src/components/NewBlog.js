@@ -9,7 +9,7 @@ const newBlogData = {
     title: '',
     content: '',
     imageURL: '',
-    username: '',
+    userName: '',
     createdDate: new Date()
 }
 
@@ -47,7 +47,7 @@ const NewBlog = () => {
                         }
                     });
                 const imageURL = response.data;
-                setBlogData((blogData) => ({ ...blogData, 'username': userInfo.userName, imageURL }));
+                setBlogData((blogData) => ({ ...blogData, 'userName': userInfo.userName, imageURL }));
             }
         }
         getImage();

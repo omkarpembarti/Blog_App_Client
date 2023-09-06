@@ -1,7 +1,7 @@
 export const SERVICE_URLS = {
     userLogin: { url: '/login', method: 'POST' },
     userRegister: { url: '/register', method: 'POST' },
-    publishBlog: { url: 'blog/publishContent', method: 'POST' },
+    publishBlog: { url: 'blog/publish', method: 'POST' },
     uploadImage: { url: 'blog/publishImage', method: 'POST' },
     // getAllPosts: { url: '/posts', method: 'GET', params: true },
     // getRefreshToken: { url: '/token', method: 'POST' },
