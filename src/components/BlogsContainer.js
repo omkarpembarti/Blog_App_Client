@@ -1,10 +1,25 @@
 import { Container } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Blog from './Blog'
+import { API } from '../Services/api'
 
 const BlogsContainer = () => {
+
+    const [blogs, setBlogs] = useState([]);
+
+    useEffect(() => {
+
+        const fetchAllBlogs = async () => {
+            const response = await API.getAllBlogs();
+            setBlogs(response.data);
+        }
+        fetchAllBlogs()
+    }, [])
+
+
+
     return (
-        <Container maxWidth='lg' sx={{
+        <Container maxWidth='xl' sx={{
             'padding': 5,
             'display': 'flex',
             'flexDirection': 'row',
@@ -12,11 +27,15 @@ const BlogsContainer = () => {
             'flexWrap': 'wrap',
             'gap': 3
         }}>
-            <Blog />
-            <Blog />
-            <Blog />
-            <Blog /><Blog /><Blog /><Blog />
-            <Blog />
+            {(blogs.length !== 0) && (
+                blogs.map((blog, index) =>
+                    <Blog
+                        {...blog}
+                        key={index}
+                    />
+                )
+
+            )}
         </Container>
     )
 }

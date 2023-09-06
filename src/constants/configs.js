@@ -3,7 +3,7 @@ export const SERVICE_URLS = {
     userRegister: { url: '/register', method: 'POST' },
     publishBlog: { url: 'blog/publish', method: 'POST' },
     uploadImage: { url: 'blog/publishImage', method: 'POST' },
-    // getAllPosts: { url: '/posts', method: 'GET', params: true },
+    getAllBlogs: { url: '/allBlogs', method: 'GET' }
     // getRefreshToken: { url: '/token', method: 'POST' },
 
     // createPost: { url: 'create', method: 'POST' },

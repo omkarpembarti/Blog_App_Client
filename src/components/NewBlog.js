@@ -63,6 +63,8 @@ const NewBlog = () => {
         try {
 
             const response = API.publishBlog(blogData);
+
+
             //API call
         }
         catch (e) { }
@@ -105,7 +107,7 @@ const NewBlog = () => {
                 />
                 <label htmlFor='upload-photo' >
                     <Button variant='contained' sx={{ borderRadius: '20px' }} component="span" startIcon={<CloudUploadIcon fontSize='large' />}>
-                        upload image
+                        Image
                     </Button>
                 </label>
                 <Typography sx={{ display: 'flex', alignItems: 'center', marginLeft: '3px' }}>{imageName}</Typography>
