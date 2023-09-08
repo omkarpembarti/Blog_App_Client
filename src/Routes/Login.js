@@ -5,6 +5,8 @@ import HocCredentialContainer from '../components/HocCredentialContainer'
 import { useNavigate } from 'react-router';
 import { API } from '../Services/api';
 import { UserContext } from '../contexts/UserDataContext';
+import { useDispatch } from 'react-redux';
+import { getBlogs } from '../slices/blogSlice';
 // import { userLogin } from '../constants/configs'
 
 const Login = ({ setUserAuthenticated }) => {
@@ -12,7 +14,8 @@ const Login = ({ setUserAuthenticated }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [userNameError, setUserNameError] = useState(false);
-    const [passwordError, setPasswordError] = useState(false)
+    const [passwordError, setPasswordError] = useState(false);
+    const dispatch = useDispatch();
 
     const { setUserInfo } = useContext(UserContext);
     const onLoginClick = async () => {
@@ -29,6 +32,7 @@ const Login = ({ setUserAuthenticated }) => {
                 setUserAuthenticated(true);
                 sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
                 sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
+                dispatch(getBlogs());
                 setUserInfo((prevState) => ({ ...prevState, userName: response.data.userName, name: response.data.name }))
                 navigate('/');
             }

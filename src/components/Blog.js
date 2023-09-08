@@ -8,10 +8,11 @@ import { red } from '@mui/material/colors';
 import '../GlobalCss_MUI.css';
 import { CardActionArea, CardMedia } from '@mui/material';
 import './BlogStyle.css';
+import { useNavigate } from 'react-router';
 
 export default function Blog(props) {
 
-
+    const navigate = useNavigate();
     const cardStyle = {
         'width': '100%', /* Set the width of the container */
         'display': 'flex',
@@ -22,10 +23,11 @@ export default function Blog(props) {
     createdDate = createdDate.toDateString();
 
 
+
     return (
 
         <Card variant='elevation' sx={{ borderRadius: '16px', maxHeight: '400px', width: '330px' }} raised={true}>
-            <CardActionArea>
+            <CardActionArea onClick={() => { navigate(`/blog/${props._id}`) }}>
                 <CardHeader
                     avatar={
                         <Avatar sx={{ bgcolor: red[500] }} >

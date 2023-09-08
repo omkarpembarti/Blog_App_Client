@@ -2,6 +2,7 @@ import { CssBaseline, createTheme } from '@mui/material';
 import './App.css';
 import Header from './components/Header';
 import { ThemeProvider } from '@emotion/react';
+import { Provider } from 'react-redux'
 import { useContext, useState } from 'react';
 import { ThemeContext } from './contexts/Themecontext';
 import BlogsContainer from './components/BlogsContainer';
@@ -11,6 +12,8 @@ import NewBlog from './components/NewBlog';
 import Register from './Routes/Register';
 import Login from './Routes/Login';
 import UserDataContext from './contexts/UserDataContext';
+import BlogDetails from './Routes/BlogDetails';
+import store from './store';
 
 function App() {
 
@@ -35,34 +38,25 @@ function App() {
 
   return (
     <div className="App">
-      <ThemeProvider theme={themeMode}>
-        <UserDataContext>
-          <CssBaseline />
-          {isUserAuthenticated && <Header setUserAuthenticated={setUserAuthenticated} />}
-          <Routes>
+      <Provider store={store}>
+        <ThemeProvider theme={themeMode}>
+          <UserDataContext>
+            <CssBaseline />
+            {isUserAuthenticated && <Header setUserAuthenticated={setUserAuthenticated} />}
+            <Routes>
 
-            <Route path='/login' element={<Login setUserAuthenticated={setUserAuthenticated} />} exact />
-            <Route path='/register' element={<Register />} exact />
-            <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />}>
-              <Route path='/' element={<BlogsContainer />} exact />
-              <Route path='/addBlog' element={<NewBlog />} exact />
-              <Route path='/myblogs' element={<>I am My blog container</>} exact />
-            </Route>
-            {/*
-              <Route path='/register' element={<PrivateRoute />} exact>
-                <Register />
-                <Route />
-                <Route path='/addBlog' element={<PrivateRoute></PrivateRoute>}>
-                  <NewBlog />
-                  <Route />
-                  <Route path='/myblogs' element={ } >
-                    <>I am My blog container</>
-                    <Route />
-  */}
-
-          </Routes>
-        </UserDataContext>
-      </ThemeProvider>
+              <Route path='/login' element={<Login setUserAuthenticated={setUserAuthenticated} />} exact />
+              <Route path='/register' element={<Register />} exact />
+              <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />}>
+                <Route path='/' element={<BlogsContainer />} exact />
+                <Route path='/addBlog' element={<NewBlog />} exact />
+                <Route path='/myblogs' element={<>I am My blog container</>} exact />
+                <Route path='/blog/:id' element={<BlogDetails />} exact />
+              </Route>
+            </Routes>
+          </UserDataContext>
+        </ThemeProvider>
+      </Provider>
     </div>
   );
 }

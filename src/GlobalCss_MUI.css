@@ -1,9 +1,9 @@
 .MuiCardHeader-title {
-  text-align: left;
-  font-weight: bold;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left !important;
+  font-weight: bold !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 1 !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
