@@ -41,7 +41,7 @@ const Login = ({ setUserAuthenticated }) => {
 
     return (
         <HocCredentialContainer >
-            <Typography variant='h3'>Blog-App</Typography>
+            <Typography variant='h3' sx={{ 'fontFamily': 'Dancing Script, cursive', 'fontWeight': 'bold' }}>Blog-App</Typography>
             <TextField
                 error={userNameError}
                 variant='standard'

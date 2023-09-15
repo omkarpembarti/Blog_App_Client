@@ -50,7 +50,17 @@ export default function Header({ setUserAuthenticated }) {
 
             <AppBar position="static">
                 <Toolbar>
-                    <Typography onClick={() => navigate('/')} variant="h4" component="div" sx={{ 'flexGrow': 1, 'fontFamily': 'fantasy' }}>
+                    <Typography
+                        onClick={() => navigate('/')}
+                        variant="h4"
+                        component="div"
+                        sx={{
+                            'marginRight': 'auto',
+                            'textAlign': 'left',
+                            'fontFamily': 'Dancing Script, cursive',
+                            'fontWeight': 'bold',
+                            'cursor': 'pointer'
+                        }}>
                         Blogs-App
                     </Typography>
                     <Button
