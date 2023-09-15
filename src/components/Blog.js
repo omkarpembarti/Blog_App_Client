@@ -18,14 +18,9 @@ export default function Blog(props) {
         'display': 'flex',
         "flexDirection": 'column'
     }
-
     let createdDate = new Date(props.createdDate);
     createdDate = createdDate.toDateString();
-
-
-
     return (
-
         <Card variant='elevation' sx={{ borderRadius: '16px', maxHeight: '400px', width: '330px' }} raised={true}>
             <CardActionArea onClick={() => { navigate(`/blog/${props._id}`) }}>
                 <CardHeader
@@ -50,11 +45,7 @@ export default function Blog(props) {
                         {props.content}
                     </Typography>
                 </CardContent>
-
-
             </CardActionArea>
-
-
         </Card >
     );
 }
