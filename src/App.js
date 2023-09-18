@@ -3,7 +3,7 @@ import './App.css';
 import Header from './components/Header';
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux'
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ThemeContext } from './contexts/Themecontext';
 import BlogsContainer from './components/BlogsContainer';
 import { Navigate, Outlet, Route, Routes } from 'react-router';
@@ -14,6 +14,9 @@ import Login from './Routes/Login';
 import UserDataContext from './contexts/UserDataContext';
 import BlogDetails from './Routes/BlogDetails';
 import store from './store';
+import CustomSnackbar from './components/CustomSnackbar';
+
+
 
 function App() {
 
@@ -36,6 +39,8 @@ function App() {
 
   }
 
+
+
   return (
     <div className="App">
       <Provider store={store}>
@@ -54,6 +59,7 @@ function App() {
                 <Route path='/blog/:id' element={<BlogDetails />} exact />
               </Route>
             </Routes>
+            <CustomSnackbar></CustomSnackbar>
           </UserDataContext>
         </ThemeProvider>
       </Provider>

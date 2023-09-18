@@ -1,10 +1,12 @@
 import { Avatar, Container, Divider, IconButton, InputAdornment, Stack, TextField, Tooltip, Typography } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import ClearIcon from '@mui/icons-material/Clear';
 import SendIcon from '@mui/icons-material/Send';
 import { UserContext } from '../contexts/UserDataContext';
 import { API } from '../Services/api'
 import { deepOrange } from '@mui/material/colors';
+import { useDispatch } from 'react-redux';
+import { setOpen } from '../slices/snackbarSlice';
 const containerStyle = {
     'display': 'flex',
     'flexDirection': 'column',
@@ -27,6 +29,7 @@ const Comments = ({ blog }) => {
     const [newComment, setNewComment] = useState(initialValue);
     const { userInfo } = useContext(UserContext);
     const [comments, setComments] = useState([]);
+    const dispatch = useDispatch();
 
     const getInitials = (username) => {
         const words = username.split(' ');
@@ -55,22 +58,38 @@ const Comments = ({ blog }) => {
     }
     const HandleSubmitComment = async () => {
 
+        if (newComment.comment.trim().length === 0) {
+            return;
+        }
 
         const response = await API.addComment(newComment);
         if (response.data.success) {
+            dispatch(setOpen({ 'message': response.data.msg }));
+            setComments((prevComments) => ([newComment, ...prevComments]));
             setNewComment(initialValue);
+        } else {
+            console.log('');
         }
-        console.log(response);
     }
 
 
     return (
-        <Container maxWidth='md' sx={containerStyle}>
-            <Typography variant='h4'>
+        <Container
+            maxWidth='md'
+            sx={containerStyle}>
+            <Typography
+                variant='h4'>
                 Comments
             </Typography>
             <Divider />
-            <div className='commentInput' style={{ 'display': 'flex', 'flexDirection': 'row', 'alignItems': 'center', 'gap': 4 }}>
+            <div
+                className='commentInput'
+                style={{
+                    'display': 'flex',
+                    'flexDirection': 'row',
+                    'alignItems': 'center',
+                    'gap': 4
+                }}>
                 <TextField
                     name='newComment'
                     value={newComment.comment}
@@ -106,21 +125,34 @@ const Comments = ({ blog }) => {
 
 
             {comments.length > 0 && comments.map(comment => {
-                return (<><Stack direction='row' sx={{
-                    'display': 'flex',
-                    'gap': '5px',
-                    'textAlign': 'justify'
+                return (
+                    <Fragment key={comment._id}>
+                        <Stack
+                            direction='row'
+                            sx={{
+                                'display': 'flex',
+                                'gap': '5px',
+                                'textAlign': 'justify'
 
-                }}
-                    key={comment._id}>
-                    <Avatar sx={{ bgcolor: deepOrange[500] }}>{getInitials(comment.name)}</Avatar>
-                    <Stack direction='column'>
-                        <Typography gutterBottom={true} sx={{ 'fontWeight': 'bold' }}>Omkar Pembarti</Typography>
-                        <Typography>{comment.comment} </Typography>
+                            }}
+                            key={comment._id}>
+                            <Avatar
+                                sx={{ bgcolor: deepOrange[500] }}>
+                                {getInitials(comment.name)}
+                            </Avatar>
+                            <Stack direction='column'>
+                                <Typography
+                                    gutterBottom={true}
+                                    sx={{ 'fontWeight': 'bold' }}>
+                                    Omkar Pembarti
+                                </Typography>
+                                <Typography>{comment.comment} </Typography>
+                            </Stack>
 
-                    </Stack>
-
-                </Stack><Divider variant='middle' /></>)
+                        </Stack>
+                        <Divider variant='middle' />
+                    </Fragment>
+                )
             }
 
             )}

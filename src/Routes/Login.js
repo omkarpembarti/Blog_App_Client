@@ -7,6 +7,7 @@ import { API } from '../Services/api';
 import { UserContext } from '../contexts/UserDataContext';
 import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
+import { setOpen } from '../slices/snackbarSlice';
 // import { userLogin } from '../constants/configs'
 
 const Login = ({ setUserAuthenticated }) => {
@@ -19,6 +20,7 @@ const Login = ({ setUserAuthenticated }) => {
 
     const { setUserInfo } = useContext(UserContext);
     const onLoginClick = async () => {
+
         let response = await API.userLogin({ userName, password });
         if (response.data.msg === 'Invalid Credentials') {
             setUserNameError(true);
