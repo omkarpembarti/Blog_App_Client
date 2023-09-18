@@ -44,7 +44,7 @@ const Comments = ({ blog }) => {
             setComments(response.data);
         }
         getAllComments()
-    }, [])
+    }, [blog._id])
 
     const handleCommentChange = (e) => {
         const text = e.target.value;
@@ -65,7 +65,7 @@ const Comments = ({ blog }) => {
         const response = await API.addComment(newComment);
         if (response.data.success) {
             dispatch(setOpen({ 'message': response.data.msg }));
-            setComments((prevComments) => ([newComment, ...prevComments]));
+            setComments((prevComments) => ([response.data.newComment, ...prevComments]));
             setNewComment(initialValue);
         } else {
             console.log('');
@@ -123,10 +123,9 @@ const Comments = ({ blog }) => {
             </div>
 
 
-
             {comments.length > 0 && comments.map(comment => {
                 return (
-                    <Fragment key={comment._id}>
+                    <React.Fragment key={comment._id}>
                         <Stack
                             direction='row'
                             sx={{
@@ -144,14 +143,14 @@ const Comments = ({ blog }) => {
                                 <Typography
                                     gutterBottom={true}
                                     sx={{ 'fontWeight': 'bold' }}>
-                                    Omkar Pembarti
+                                    {comment.name}
                                 </Typography>
-                                <Typography>{comment.comment} </Typography>
+                                <Typography sx={{ 'width': '100%', 'overflowWrap': 'anywhere' }}>{comment.comment} </Typography>
                             </Stack>
 
                         </Stack>
                         <Divider variant='middle' />
-                    </Fragment>
+                    </React.Fragment>
                 )
             }
 

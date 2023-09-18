@@ -4,6 +4,10 @@ import { useContext, useState, useEffect } from 'react'
 import { UserContext } from '../contexts/UserDataContext';
 import { API } from '../Services/api';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { addBlog } from '../slices/blogSlice';
+import { useNavigate } from 'react-router';
+import { setOpen } from '../slices/snackbarSlice';
 
 const newBlogData = {
     title: '',
@@ -18,7 +22,9 @@ const NewBlog = () => {
     const [imageName, setImageName] = useState('No file chosen');
     const [blogData, setBlogData] = useState(newBlogData);
     const { userInfo } = useContext(UserContext);
-    //userInfo.userName
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const containerStyle = {
         display: 'flex',
         flexDirection: 'column',
@@ -59,13 +65,20 @@ const NewBlog = () => {
         setImageName(e.target.files[0].name);
     }
 
-    const onPublishClick = () => {
+    const onPublishClick = async () => {
         try {
 
-            const response = API.publishBlog(blogData);
+            const response = await API.publishBlog(blogData);
+            if (response.data.success) {
+                dispatch(addBlog({ 'newBlog': response.data.blogData }));
+                navigate('/');
+                dispatch(setOpen({ 'message': response.data.msg }));
+            }
+            else {
+                dispatch(setOpen({ 'message': response.data.msg, 'severity': 'error' }))
+            }
 
 
-            //API call
         }
         catch (e) { }
     }
@@ -113,7 +126,10 @@ const NewBlog = () => {
                 <Typography sx={{ display: 'flex', alignItems: 'center', marginLeft: '3px' }}>{imageName}</Typography>
             </Stack>
 
-            <Stack direction='row'>
+            <Stack direction='row' sx={{
+                'justifyContent': 'flex-end',
+                'gap': '15px'
+            }}>
                 <Button variant='contained' color='error'>Cancel</Button>
                 <Button variant='contained' color='success' onClick={onPublishClick}>Publish</Button>
             </Stack>

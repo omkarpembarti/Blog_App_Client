@@ -107,7 +107,10 @@ export default function Header({ setUserAuthenticated }) {
                                 onClose={handleClose}
                             >
 
-                                <MenuItem onClick={handleClose}>
+                                <MenuItem onClick={() => {
+                                    navigate('/myblogs');
+                                    handleClose();
+                                }}>
                                     <ListItemIcon>
                                         <AutoStoriesIcon />
                                     </ListItemIcon>
@@ -139,6 +142,6 @@ export default function Header({ setUserAuthenticated }) {
                     )}
                 </Toolbar>
             </AppBar>
-        </Box>
+        </Box >
     );
 }

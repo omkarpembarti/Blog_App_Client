@@ -7,9 +7,6 @@ import { API } from '../Services/api';
 import { UserContext } from '../contexts/UserDataContext';
 import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
-import { setOpen } from '../slices/snackbarSlice';
-// import { userLogin } from '../constants/configs'
-
 const Login = ({ setUserAuthenticated }) => {
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');

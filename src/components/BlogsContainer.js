@@ -1,22 +1,11 @@
 import { Container } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Blog from './Blog'
-import { API } from '../Services/api'
 import { useSelector } from 'react-redux'
 
 const BlogsContainer = () => {
 
     const { blogs } = useSelector((state) => state.blogSlice);
-
-    // const [blogs, setBlogs] = useState([]);
-    // useEffect(() => {
-    //     const fetchAllBlogs = async () => {
-    //         const response = await API.getAllBlogs();
-    //         setBlogs(response.data);
-    //     }
-    //     fetchAllBlogs()
-    // }, [])
-
 
 
     return (

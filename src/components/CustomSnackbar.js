@@ -25,7 +25,7 @@ export default function CustomSnackbar() {
         <Snackbar
             anchorOrigin={{ 'vertical': 'bottom', 'horizontal': 'right' }}
             open={snackbarSlice.visibility}
-            autoHideDuration={3000}
+            autoHideDuration={4000}
             onClose={handleClose}>
             <Alert severity={snackbarSlice.severity} sx={{ width: '100%' }}>
                 {snackbarSlice.message}

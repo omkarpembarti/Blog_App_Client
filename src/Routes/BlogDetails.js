@@ -2,12 +2,21 @@ import { Avatar, Container, Divider, Stack, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Comments from '../components/Comments';
+import { useEffect } from 'react';
 
 
 
 const BlogDetails = () => {
     const param = useParams();
     const { blogs } = useSelector((state) => state.blogSlice);
+
+    useEffect(() => {
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        };
+        topFunction();
+    }, [])
 
     const currentBlog = blogs.find((blog) => {
         if (blog['_id'] === param.id)
