@@ -28,12 +28,13 @@ export const SERVICE_URLS = {
     publishBlog: { url: 'blog/publish', method: 'POST' },
     uploadImage: { url: 'blog/publishImage', method: 'POST' },
     getAllBlogs: { url: '/allBlogs', method: 'GET' },
+    getMyBlogs: { url: '/myBlogs', method: 'GET', query: true },
     addComment: { url: '/comment/new', method: 'POST' },
     getComments: { url: 'comments', method: 'GET', query: true },
     // getRefreshToken: { url: '/token', method: 'POST' },
 
     // createPost: { url: 'create', method: 'POST' },
-    // deletePost: { url: 'delete', method: 'DELETE', query: true },
+    deleteBlog: { url: '/deleteBlog', method: 'GET', query: true },
     // getPostById: { url: 'post', method: 'GET', query: true },
 
 

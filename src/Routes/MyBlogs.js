@@ -1,14 +1,26 @@
 import { Container, Divider, Typography } from '@mui/material'
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 
 import { useSelector } from 'react-redux'
 import Blog from '../components/Blog';
+import { API } from '../Services/api';
+import { UserContext } from '../contexts/UserDataContext';
 
 const MyBlogs = () => {
 
-    const { blogs } = useSelector((state) => state.blogSlice);
+    const { userInfo } = useContext(UserContext);
+    const [blogs, setBlogs] = useState([]);
+    useEffect(() => {
 
+        const getMyBlogs = async () => {
+
+            const response = await API.getMyBlogs(userInfo.userName);
+            setBlogs(response.data);
+            console.log(response);
+        }
+        getMyBlogs();
+    }, []);
 
     return (
         <>
@@ -30,6 +42,7 @@ const MyBlogs = () => {
                             <Blog
                                 {...blog}
                                 key={blog._id}
+                                setBlogs={setBlogs}
                             />
                         )
                     )

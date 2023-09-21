@@ -4,11 +4,103 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import '../GlobalCss_MUI.css';
-import { CardActionArea, CardMedia } from '@mui/material';
+import { CardActionArea, CardMedia, ListItemIcon, ListItemText } from '@mui/material';
 import './BlogStyle.css';
-import { useNavigate } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
+import IconButton from '@mui/material/IconButton';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { API } from '../Services/api';
+import { useDispatch } from 'react-redux';
+import { getBlogs } from '../slices/blogSlice';
+import { setOpen } from '../slices/snackbarSlice';
+
+
+
+const BlogMenu = (props) => {
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const open = Boolean(anchorEl);
+    const id = props.id;
+    const handleClick = (event) => {
+        event.stopPropagation();
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = (event) => {
+        event.stopPropagation();
+        setAnchorEl(null);
+    };
+
+    const onDeleteBlog = (event) => {
+        async function deleteBlog(id) {
+            const response = await API.deleteBlog(id);
+            console.log(response);
+            if (response.isSuccess) {
+                props.setBlogs((prevBlogs) => {
+                    let newBlogs = prevBlogs.filter((blog) => {
+                        if (blog._id !== response.data._id) {
+                            return true;
+                        }
+                        return false;
+                    })
+                    return newBlogs;
+                })
+                dispatch(setOpen({ 'message': 'Deleted Successfully' }));
+                dispatch(getBlogs());
+            }
+        }
+        handleClose(event);
+        deleteBlog(id);
+
+    }
+
+    //Logic to show action buttons only on my blogs screen.
+    if (location.pathname !== '/myblogs') {
+        return;
+    } else {
+        return (
+            <div>
+                <IconButton
+                    aria-label="more"
+                    id="long-button"
+                    aria-controls={open ? 'long-menu' : undefined}
+                    aria-expanded={open ? 'true' : undefined}
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                >
+                    <MoreVertIcon />
+                </IconButton>
+                <Menu
+                    id="long-menu"
+                    MenuListProps={{
+                        'aria-labelledby': 'long-button',
+                    }}
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                >
+
+                    <MenuItem key='edit' onClick={handleClose}>
+                        <ListItemIcon><EditNoteIcon /></ListItemIcon>
+                        <ListItemText>Edit</ListItemText>
+                    </MenuItem>
+                    <MenuItem key='delete' onClick={onDeleteBlog}>
+
+                        <ListItemIcon><DeleteIcon /></ListItemIcon>
+                        <ListItemText>Delete</ListItemText>
+                    </MenuItem>
+
+                </Menu>
+            </div>
+        );
+    }
+
+}
 
 export default function Blog(props) {
 
@@ -20,8 +112,6 @@ export default function Blog(props) {
     }
     let createdDate = new Date(props.createdDate);
     createdDate = createdDate.toDateString();
-
-
 
     function stringToColor(string) {
         let hash = 0;
@@ -60,6 +150,9 @@ export default function Blog(props) {
                         <Avatar {...stringAvatar(`${props.userName} Random`)} >
                             {props.userName[0].toUpperCase()}
                         </Avatar>
+                    }
+                    action={
+                        <BlogMenu id={props._id} setBlogs={props.setBlogs} />
                     }
 
                     title={props.title}

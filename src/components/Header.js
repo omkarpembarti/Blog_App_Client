@@ -8,8 +8,8 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import { useLocation, useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { setOpen } from '../slices/snackbarSlice';
+// import { useDispatch } from 'react-redux';
+// import { setOpen } from '../slices/snackbarSlice';
 
 export default function Header({ setUserAuthenticated }) {
 
@@ -55,8 +55,8 @@ export default function Header({ setUserAuthenticated }) {
                 <Toolbar>
                     <Typography
                         onClick={() => {
-                            dispatch(setOpen({ message: 'Logo Click' }))
-                            navigate('/')
+                            //dispatch(setOpen({ message: 'Logo Click' }))
+                            navigate('/');
                         }}
                         variant="h4"
                         component="div"
