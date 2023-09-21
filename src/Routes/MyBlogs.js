@@ -17,7 +17,6 @@ const MyBlogs = () => {
 
             const response = await API.getMyBlogs(userInfo.userName);
             setBlogs(response.data);
-            console.log(response);
         }
         getMyBlogs();
     }, []);

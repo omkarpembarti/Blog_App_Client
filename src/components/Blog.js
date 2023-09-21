@@ -39,7 +39,7 @@ const BlogMenu = (props) => {
     const onDeleteBlog = (event) => {
         async function deleteBlog(id) {
             const response = await API.deleteBlog(id);
-            console.log(response);
+
             if (response.isSuccess) {
                 props.setBlogs((prevBlogs) => {
                     let newBlogs = prevBlogs.filter((blog) => {

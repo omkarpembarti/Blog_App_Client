@@ -8,7 +8,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import { useLocation, useNavigate } from 'react-router';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 // import { setOpen } from '../slices/snackbarSlice';
 
 export default function Header({ setUserAuthenticated }) {

@@ -8,20 +8,23 @@ import { useDispatch } from 'react-redux';
 import { addBlog } from '../slices/blogSlice';
 import { useNavigate } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
+import { imagePlaceHolder } from '../constants/placeholders';
 
-const newBlogData = {
-    title: '',
-    content: '',
-    imageURL: '',
-    userName: '',
-    createdDate: new Date()
-}
+
 
 const NewBlog = () => {
+    const { userInfo } = useContext(UserContext);
+    const newBlogData = {
+        title: '',
+        content: '',
+        imageURL: imagePlaceHolder,
+        userName: userInfo.userName,
+        createdDate: new Date()
+    }
     const [image, setImage] = useState('');
     const [imageName, setImageName] = useState('No file chosen');
     const [blogData, setBlogData] = useState(newBlogData);
-    const { userInfo } = useContext(UserContext);
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -42,8 +45,6 @@ const NewBlog = () => {
                 const formdata = new FormData();
                 formdata.append("name", imageName);
                 formdata.append("file", image);
-
-
                 const response = await axios.post('http://localhost:6000/blog/publishImage',
                     formdata,
                     {
@@ -65,8 +66,32 @@ const NewBlog = () => {
         setImageName(e.target.files[0].name);
     }
 
+    const onClearClick = () => {
+        setBlogData(newBlogData);
+        setImage('');
+        setImageName('');
+    }
+
     const onPublishClick = async () => {
         try {
+
+            if (blogData.title.trim().length === 0) {
+                dispatch(setOpen({ 'message': 'Please Enter the Title', 'severity': 'error' }))
+                return;
+            }
+            if (blogData.content.trim().length === 0) {
+                dispatch(setOpen({ 'message': 'Please Enter the Content', 'severity': 'error' }))
+                return;
+            }
+
+            // if (blogData.imageURL === '') {
+            //     //blogData.imageURL = imagePlaceHolder;
+            //     setBlogData((blogData) => ({ ...blogData, 'userName': userInfo.userName, 'imageURL': imagePlaceHolder }));
+            // }
+
+            // let paramBlogData = {
+
+            // }
 
             const response = await API.publishBlog(blogData);
             if (response.data.success) {
@@ -94,19 +119,21 @@ const NewBlog = () => {
 
             <TextField
                 name='title'
+                value={blogData.title}
                 onChange={handleTextChange}
                 label="Title"
                 variant="outlined"
-                required
+
             />
             <TextField
                 name='content'
+                value={blogData.content}
                 onChange={handleTextChange}
                 label="Body"
                 variant="outlined"
                 multiline
                 minRows={6}
-                required
+
             />
 
             <Stack direction='row'>
@@ -130,7 +157,7 @@ const NewBlog = () => {
                 'justifyContent': 'flex-end',
                 'gap': '15px'
             }}>
-                <Button variant='contained' color='error'>Cancel</Button>
+                <Button variant='contained' color='error' onClick={onClearClick}>Clear</Button>
                 <Button variant='contained' color='success' onClick={onPublishClick}>Publish</Button>
             </Stack>
 
