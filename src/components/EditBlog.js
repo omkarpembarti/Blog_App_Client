@@ -1,30 +1,29 @@
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Button, Container, Stack, TextField, Typography } from '@mui/material';
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { UserContext } from '../contexts/UserDataContext';
 import { API } from '../Services/api';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addBlog } from '../slices/blogSlice';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
-import { imagePlaceHolder } from '../constants/placeholders';
-import { addMyBlog, addMyBlogs } from '../slices/myBlogSlice';
-
 
 
 const NewBlog = () => {
     const { userInfo } = useContext(UserContext);
-    const newBlogData = {
+    const initialBlogData = useRef({
         title: '',
         content: '',
-        imageURL: imagePlaceHolder,
-        userName: userInfo.userName,
+        imageURL: '',
+        userName: '',
         createdDate: new Date()
-    }
+    });
     const [image, setImage] = useState('');
     const [imageName, setImageName] = useState('No file chosen');
-    const [blogData, setBlogData] = useState(newBlogData);
+    const [blogData, setBlogData] = useState(initialBlogData);
+    const params = useParams();
+    const { myBlogs } = useSelector(state => state.myBlogSlice);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,6 +38,16 @@ const NewBlog = () => {
         borderRadius: 3
     };
 
+    useEffect(() => {
+        const myBlog = myBlogs.find((blog) => {
+            if (blog._id === params.id)
+                return true;
+            return false;
+        });
+        setBlogData(myBlog);
+        initialBlogData.current = myBlog;
+
+    }, [])
     useEffect(() => {
         const getImage = async () => {
 
@@ -68,9 +77,8 @@ const NewBlog = () => {
     }
 
     const onClearClick = () => {
-        setBlogData(newBlogData);
-        setImage('');
-        setImageName('');
+        setBlogData(initialBlogData.current);
+
     }
 
     const onPublishClick = async () => {
@@ -85,19 +93,9 @@ const NewBlog = () => {
                 return;
             }
 
-            // if (blogData.imageURL === '') {
-            //     //blogData.imageURL = imagePlaceHolder;
-            //     setBlogData((blogData) => ({ ...blogData, 'userName': userInfo.userName, 'imageURL': imagePlaceHolder }));
-            // }
-
-            // let paramBlogData = {
-
-            // }
-
             const response = await API.publishBlog(blogData);
             if (response.data.success) {
                 dispatch(addBlog({ 'newBlog': response.data.blogData }));
-                dispatch(addMyBlog(response.data.blogData));
                 navigate('/');
                 dispatch(setOpen({ 'message': response.data.msg }));
             }
@@ -159,8 +157,12 @@ const NewBlog = () => {
                 'justifyContent': 'flex-end',
                 'gap': '15px'
             }}>
-                <Button variant='contained' color='error' onClick={onClearClick}>Clear</Button>
-                <Button variant='contained' color='success' onClick={onPublishClick}>Publish</Button>
+                <Button variant='contained' color='error' onClick={onClearClick}>
+                    Reset
+                </Button>
+                <Button variant='contained' color='success' onClick={onPublishClick}>
+                    Publish
+                </Button>
             </Stack>
 
 

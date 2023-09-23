@@ -18,6 +18,8 @@ import { API } from '../Services/api';
 import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
 import { setOpen } from '../slices/snackbarSlice';
+import { deleteMyBlog } from '../slices/myBlogSlice';
+
 
 
 
@@ -25,6 +27,7 @@ const BlogMenu = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     const open = Boolean(anchorEl);
     const id = props.id;
     const handleClick = (event) => {
@@ -41,21 +44,18 @@ const BlogMenu = (props) => {
             const response = await API.deleteBlog(id);
 
             if (response.isSuccess) {
-                props.setBlogs((prevBlogs) => {
-                    let newBlogs = prevBlogs.filter((blog) => {
-                        if (blog._id !== response.data._id) {
-                            return true;
-                        }
-                        return false;
-                    })
-                    return newBlogs;
-                })
+
+                dispatch(deleteMyBlog({ '_id': id }));
                 dispatch(setOpen({ 'message': 'Deleted Successfully' }));
                 dispatch(getBlogs());
             }
         }
         handleClose(event);
         deleteBlog(id);
+    }
+    const onEditBlog = (event) => {
+        handleClose(event);
+        navigate(`/editBlog/${id}`);
 
     }
 
@@ -85,7 +85,7 @@ const BlogMenu = (props) => {
                     onClose={handleClose}
                 >
 
-                    <MenuItem key='edit' onClick={handleClose}>
+                    <MenuItem key='edit' onClick={onEditBlog}>
                         <ListItemIcon><EditNoteIcon /></ListItemIcon>
                         <ListItemText>Edit</ListItemText>
                     </MenuItem>

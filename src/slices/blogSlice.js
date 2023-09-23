@@ -17,7 +17,7 @@ const initialState = {
 
 
 const blogSlice = createSlice({
-    name: 'counter',
+    name: 'blogs',
     initialState,
     reducers: {
         addBlog(state, action) {

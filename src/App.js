@@ -16,6 +16,7 @@ import BlogDetails from './Routes/BlogDetails';
 import store from './store';
 import CustomSnackbar from './components/CustomSnackbar';
 import MyBlogs from './Routes/MyBlogs';
+import EditBlog from './components/EditBlog';
 
 
 
@@ -49,6 +50,7 @@ function App() {
               <Route path='/' element={<PrivateRoute isUserAuthenticated={isUserAuthenticated} />}>
                 <Route path='/' element={<BlogsContainer />} exact />
                 <Route path='/addBlog' element={<NewBlog />} exact />
+                <Route path='/editBlog/:id' element={<EditBlog />} exact />
                 <Route path='/myblogs' element={<MyBlogs />} exact />
                 <Route path='/blog/:id' element={<BlogDetails />} exact />
               </Route>

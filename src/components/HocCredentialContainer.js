@@ -21,7 +21,7 @@ const HocCredentialContainer = ({ children }) => {
     const isXS = useMediaQuery('(min-width:600px)');
 
     return (
-        <CustomBox sx={{ 'width': `${isXS ? '30%' : '90%'}` }}>
+        <CustomBox sx={{ 'width': `${isXS ? '30%' : '90%'}`, 'backgroundColor': 'black' }}>
             {children}
         </CustomBox >
     )
