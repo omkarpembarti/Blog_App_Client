@@ -26,6 +26,14 @@ const myblogSlice = createSlice({
         addMyBlog(state, action) {
             console.log(action);
             state.myBlogs.push(action.payload);
+        },
+        updateMyBlog(state, action) {
+            state.myBlogs = state.myBlogs.map((blog) => {
+                if (blog._id === action.payload.updatedBlog._id) {
+                    return action.payload.updatedBlog;
+                }
+                return blog;
+            })
         }
     }, 'extraReducers': {
         [getMyBlogs.pending]: (state) => { },
@@ -39,5 +47,5 @@ const myblogSlice = createSlice({
 
 });
 
-export const { deleteMyBlog, addMyBlog } = myblogSlice.actions;
+export const { deleteMyBlog, addMyBlog, updateMyBlog } = myblogSlice.actions;
 export default myblogSlice.reducer;

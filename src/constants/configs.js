@@ -31,13 +31,15 @@ export const SERVICE_URLS = {
     getMyBlogs: { url: '/myBlogs', method: 'GET', query: true },
     addComment: { url: '/comment/new', method: 'POST' },
     getComments: { url: 'comments', method: 'GET', query: true },
+    updateBlog: { url: 'updateBlog', method: 'PUT' },
+    deleteBlog: { url: '/deleteBlog', method: 'GET', query: true },
     // getRefreshToken: { url: '/token', method: 'POST' },
 
     // createPost: { url: 'create', method: 'POST' },
-    deleteBlog: { url: '/deleteBlog', method: 'GET', query: true },
+
     // getPostById: { url: 'post', method: 'GET', query: true },
 
 
     // deleteComment: { url: 'comment/delete', method: 'DELETE', query: true },
-    // updatePost: { url: 'update', method: 'PUT', query: true }
+
 }

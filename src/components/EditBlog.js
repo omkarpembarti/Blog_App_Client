@@ -5,9 +5,10 @@ import { UserContext } from '../contexts/UserDataContext';
 import { API } from '../Services/api';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { addBlog } from '../slices/blogSlice';
+import { addBlog, getBlogs } from '../slices/blogSlice';
 import { useNavigate, useParams } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
+import { updateMyBlog } from '../slices/myBlogSlice';
 
 
 const NewBlog = () => {
@@ -93,14 +94,15 @@ const NewBlog = () => {
                 return;
             }
 
-            const response = await API.publishBlog(blogData);
+            const response = await API.updateBlog(blogData);
             if (response.data.success) {
-                dispatch(addBlog({ 'newBlog': response.data.blogData }));
-                navigate('/');
+                dispatch(updateMyBlog({ updatedBlog: blogData }));
+                dispatch(getBlogs());
+                navigate('/myblogs');
                 dispatch(setOpen({ 'message': response.data.msg }));
             }
             else {
-                dispatch(setOpen({ 'message': response.data.msg, 'severity': 'error' }))
+                dispatch(setOpen({ 'message': response.data.msg, 'severity': 'error' }));
             }
 
 

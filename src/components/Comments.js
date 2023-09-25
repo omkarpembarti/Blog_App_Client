@@ -21,8 +21,7 @@ const containerStyle = {
 const initialValue = {
     'name': '',
     'postID': '',
-    'comment': '',
-    'dateCreated': new Date()
+    'comment': ''
 }
 
 const Comments = ({ blog }) => {

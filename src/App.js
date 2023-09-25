@@ -28,6 +28,15 @@ function App() {
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
     },
+    typography: {
+      fontFamily: [
+        'Nunito',
+        'Roboto',
+        '"Helvetica Neue"',
+        'Arial',
+        'sans-serif'
+      ].join(','),
+    }
   });
 
   const PrivateRoute = ({ isUserAuthenticated }) => {

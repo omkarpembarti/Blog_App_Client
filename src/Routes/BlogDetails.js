@@ -6,6 +6,7 @@ import { useEffect } from 'react';
 
 
 
+
 const BlogDetails = () => {
     const param = useParams();
     const { blogs } = useSelector((state) => state.blogSlice);
@@ -43,8 +44,8 @@ const BlogDetails = () => {
                 <Divider variant='fullWidth' light={true}></Divider>
                 <Stack direction="row" spacing={1} sx={{ 'alignItems': 'center', 'height': '30px' }}>
                     <Avatar >OP</Avatar>
-                    <Typography>{currentBlog.userName} . </Typography>
-                    <Typography>{currentBlog.createdDate}</Typography>
+                    <Typography>{currentBlog.userName} </Typography>
+                    <Typography>| {new Date(currentBlog.createdDate).toDateString()}</Typography>
                 </Stack>
                 <Divider variant='fullWidth'></Divider>
                 <img src={currentBlog.imageURL}
