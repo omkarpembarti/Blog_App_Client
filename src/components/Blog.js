@@ -19,6 +19,7 @@ import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
 import { setOpen } from '../slices/snackbarSlice';
 import { deleteMyBlog } from '../slices/myBlogSlice';
+import { ThemeContext } from '../contexts/Themecontext';
 
 
 
@@ -105,6 +106,7 @@ const BlogMenu = (props) => {
 export default function Blog(props) {
 
     const navigate = useNavigate();
+    const { isDarkMode } = React.useContext(ThemeContext);
     const cardStyle = {
         'width': '100%', /* Set the width of the container */
         'display': 'flex',
@@ -141,9 +143,16 @@ export default function Blog(props) {
             children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
         };
     }
-
+    //    background-image: linear-gradient(to top, rgb(196 11 11 / 82%), rgb(50 43 43));
     return (
-        <Card variant='elevation' sx={{ borderRadius: '16px', maxHeight: '400px', width: '330px' }} raised={true}>
+        <Card
+            variant='elevation'
+            sx={{
+                'borderRadius': '16px',
+                'maxHeight': '400px',
+                'width': '330px',
+                'backgroundImage': `${isDarkMode ? ' linear-gradient(to top,rgb(203 17 17 / 34%), rgb(209 207 232 / 19%))' : ''}`
+            }} raised={true}>
             <CardActionArea onClick={() => { navigate(`/blog/${props._id}`) }}>
                 <CardHeader
                     avatar={
