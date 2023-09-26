@@ -164,6 +164,7 @@ export default function Blog(props) {
                     sx={{ width: '100%', height: '150px' }}
                     image={props.imageURL}
                     alt="Live from space album cover"
+                    loading='lazy'
                 />
                 <CardContent sx={cardStyle}>
                     <Typography

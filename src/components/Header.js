@@ -9,6 +9,8 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import DriveFileRenameOutlineOutlinedIcon from '@mui/icons-material/DriveFileRenameOutlineOutlined';
 import { useLocation, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
+import { resetblogSlice } from '../slices/blogSlice';
+import { resetMyblogSlice } from '../slices/myBlogSlice';
 // import { setOpen } from '../slices/snackbarSlice';
 
 export default function Header({ setUserAuthenticated }) {
@@ -36,6 +38,8 @@ export default function Header({ setUserAuthenticated }) {
 
     const onBtnLogout = () => {
         handleClose();
+        dispatch(resetblogSlice());
+        dispatch(resetMyblogSlice());
         setUserAuthenticated(false);
     }
 
@@ -49,10 +53,10 @@ export default function Header({ setUserAuthenticated }) {
     };
 
     return (
-        <Box sx={{ flexGrow: 1 }} >
+        <Box sx={{ 'flexGrow': 1 }} >
 
-            <AppBar position="static">
-                <Toolbar>
+            <AppBar position="static" sx={{ 'minHeight': '50px' }}>
+                <Toolbar >
                     <Typography
                         onClick={() => {
                             //dispatch(setOpen({ message: 'Logo Click' }))
@@ -73,7 +77,7 @@ export default function Header({ setUserAuthenticated }) {
                         ref={writeBtnRef}
                         variant='contained'
                         color='warning'
-                        sx={{ 'borderRadius': '20px' }}
+                        sx={{ 'borderRadius': '20px', 'backgroundImage': 'linear-gradient(to right, rgb(255, 81, 47), rgb(221, 36, 118))' }}
                         startIcon={<DriveFileRenameOutlineOutlinedIcon />}
                         onClick={OnWriteBtnClick}>
                         Write

@@ -40,6 +40,7 @@ const Comments = ({ blog }) => {
         //API Call
         const getAllComments = async () => {
             const response = await API.getComments(blog._id);
+            console.log(response);
             setComments(response.data);
         }
         getAllComments()

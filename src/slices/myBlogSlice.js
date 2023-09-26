@@ -11,9 +11,13 @@ export const getMyBlogs = createAsyncThunk(
         return response
     });
 
+const initialState = {
+    myBlogs: []
+}
+
 const myblogSlice = createSlice({
     'name': 'myblogs',
-    'initialState': { 'myBlogs': [] },
+    'initialState': initialState,
     'reducers': {
         deleteMyBlog(state, action) {
             state.myBlogs = state.myBlogs.filter((blog) => {
@@ -34,6 +38,9 @@ const myblogSlice = createSlice({
                 }
                 return blog;
             })
+        },
+        resetMyblogSlice(state) {
+            return initialState;
         }
     }, 'extraReducers': {
         [getMyBlogs.pending]: (state) => { },
@@ -47,5 +54,5 @@ const myblogSlice = createSlice({
 
 });
 
-export const { deleteMyBlog, addMyBlog, updateMyBlog } = myblogSlice.actions;
+export const { deleteMyBlog, addMyBlog, updateMyBlog, resetMyblogSlice } = myblogSlice.actions;
 export default myblogSlice.reducer;

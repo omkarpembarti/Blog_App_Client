@@ -29,7 +29,11 @@ const blogSlice = createSlice({
         },
         updateBlog(state, action) {
 
+        },
+        resetblogSlice(state) {
+            return initialState;
         }
+
     }, extraReducers: {
         [getBlogs.pending]: (state) => {
             state.loading = true
@@ -48,5 +52,5 @@ const blogSlice = createSlice({
 
 
 
-export const { addBlog, deleteBlog, updateBlog } = blogSlice.actions
+export const { addBlog, deleteBlog, updateBlog, resetblogSlice } = blogSlice.actions
 export default blogSlice.reducer

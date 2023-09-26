@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 
 const BlogsContainer = () => {
 
-    const { blogs } = useSelector((state) => state.blogSlice);
+    const { blogs, loading } = useSelector((state) => state.blogSlice);
 
 
     return (
@@ -18,7 +18,7 @@ const BlogsContainer = () => {
             'gap': 3
         }}>
             {
-                (blogs.length !== 0) && (
+                loading ? <>Loading...</> : (
                     blogs.map((blog, index) =>
                         <Blog
                             {...blog}
