@@ -5,7 +5,10 @@ import Comments from '../components/Comments';
 import { useEffect } from 'react';
 
 
-
+// const getInitials = (userName) => {
+//     const name = userName.split(' ');
+//     return name[0][0] + (name[1] === undefined ? "" : name[1][0]);
+// }
 
 const BlogDetails = () => {
     const param = useParams();
@@ -43,8 +46,8 @@ const BlogDetails = () => {
                 <Typography variant='h4'>{currentBlog.title}</Typography>
                 <Divider variant='fullWidth' light={true}></Divider>
                 <Stack direction="row" spacing={1} sx={{ 'alignItems': 'center', 'height': '30px' }}>
-                    <Avatar >OP</Avatar>
-                    <Typography>{currentBlog.userName} </Typography>
+                    <Avatar >{currentBlog.userName[0].toUpperCase()}</Avatar>
+                    <Typography>{currentBlog.userName.charAt(0).toUpperCase() + currentBlog.userName.slice(1)} </Typography>
                     <Typography>| {new Date(currentBlog.createdDate).toDateString()}</Typography>
                 </Stack>
                 <Divider variant='fullWidth'></Divider>
