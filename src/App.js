@@ -17,7 +17,8 @@ import store from './store';
 import CustomSnackbar from './components/CustomSnackbar';
 import MyBlogs from './Routes/MyBlogs';
 import EditBlog from './components/EditBlog';
-
+import WifiIcon from '@mui/icons-material/Wifi';
+import WifiOffIcon from '@mui/icons-material/WifiOff';
 const LazyNewBlog = lazy(() => import('./components/NewBlog'));
 
 function App() {
@@ -70,15 +71,14 @@ function App() {
     <div className="App">
       <span className="status"
         style={{
-          position: 'fixed',
-          backgroundColor: `${online ? 'green' : 'red'}`,
-          color: 'white',
-          bottom: 0,
-          left: 0,
-          border: '1px solid black',
-          zIndex: 9000
+          'position': 'fixed',
+          'color': 'white',
+          'bottom': 0,
+          'left': 0,
+          'zIndex': 9000
         }}
-      >{online ? 'Online' : 'Offline '}</span>
+      >{online ? <WifiIcon sx={{ 'color': 'green' }} /> : <WifiOffIcon sx={{ 'color': 'red' }} />}
+      </span>
       <Provider store={store}>
         <ThemeProvider theme={themeMode}>
           <UserDataContext>
