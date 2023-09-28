@@ -10,11 +10,13 @@ import { useNavigate } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
 import { imagePlaceHolder } from '../constants/placeholders';
 import { addMyBlog, addMyBlogs } from '../slices/myBlogSlice';
+import { getServerURL } from '../utils/comman';
 
 
 
 const NewBlog = () => {
-    const { userInfo } = useContext(UserContext);
+
+    const { userInfo, setloaderOpen } = useContext(UserContext);
     const newBlogData = {
         title: '',
         content: '',
@@ -46,7 +48,8 @@ const NewBlog = () => {
                 const formdata = new FormData();
                 formdata.append("name", imageName);
                 formdata.append("file", image);
-                const response = await axios.post('http://localhost:6000/blog/publishImage',
+                setloaderOpen(true);
+                const response = await axios.post(`${getServerURL()}/blog/publishImage`,
                     formdata,
                     {
                         'headers': {
@@ -54,6 +57,7 @@ const NewBlog = () => {
                             'content-Type': 'multipart/form-data'
                         }
                     });
+                setloaderOpen(false);
                 const imageURL = response.data;
                 setBlogData((blogData) => ({ ...blogData, 'userName': userInfo.userName, imageURL }));
             }
@@ -93,8 +97,9 @@ const NewBlog = () => {
             // let paramBlogData = {
 
             // }
-
+            setloaderOpen(true);
             const response = await API.publishBlog(blogData);
+            setloaderOpen(false);
             if (response.data.success) {
                 dispatch(addBlog({ 'newBlog': response.data.blogData }));
                 dispatch(addMyBlog(response.data.blogData));
@@ -107,7 +112,9 @@ const NewBlog = () => {
 
 
         }
-        catch (e) { }
+        catch (e) {
+            setloaderOpen(false);
+        }
     }
 
 

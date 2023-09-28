@@ -9,6 +9,7 @@ import { addBlog, getBlogs } from '../slices/blogSlice';
 import { useNavigate, useParams } from 'react-router';
 import { setOpen } from '../slices/snackbarSlice';
 import { updateMyBlog } from '../slices/myBlogSlice';
+import { getServerURL } from '../utils/comman';
 
 
 const NewBlog = () => {
@@ -56,7 +57,7 @@ const NewBlog = () => {
                 const formdata = new FormData();
                 formdata.append("name", imageName);
                 formdata.append("file", image);
-                const response = await axios.post('http://localhost:6000/blog/publishImage',
+                const response = await axios.post(`${getServerURL()}/blog/publishImage`,
                     formdata,
                     {
                         'headers': {

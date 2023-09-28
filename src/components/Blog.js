@@ -20,12 +20,15 @@ import { getBlogs } from '../slices/blogSlice';
 import { setOpen } from '../slices/snackbarSlice';
 import { deleteMyBlog } from '../slices/myBlogSlice';
 import { ThemeContext } from '../contexts/Themecontext';
+import { getServerURL } from '../utils/comman';
+import { UserContext } from '../contexts/UserDataContext';
 
 
 
 
 const BlogMenu = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { setloaderOpen } = React.useContext(UserContext);
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
@@ -42,8 +45,9 @@ const BlogMenu = (props) => {
 
     const onDeleteBlog = (event) => {
         async function deleteBlog(id) {
+            setloaderOpen(true);
             const response = await API.deleteBlog(id);
-
+            setloaderOpen(false);
             if (response.isSuccess) {
 
                 dispatch(deleteMyBlog({ '_id': id }));
@@ -114,6 +118,7 @@ export default function Blog(props) {
     }
     let createdDate = new Date(props.createdDate);
     createdDate = createdDate.toDateString();
+    const serverURL = getServerURL();
 
     function stringToColor(string) {
         let hash = 0;
@@ -171,7 +176,7 @@ export default function Blog(props) {
                 <CardMedia
                     component="img"
                     sx={{ width: '100%', height: '150px' }}
-                    image={props.imageURL}
+                    image={`${serverURL + props.imageURL}`}
                     alt="Live from space album cover"
                     loading='lazy'
                 />

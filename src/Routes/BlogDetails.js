@@ -4,6 +4,7 @@ import { useParams } from 'react-router';
 //import Comments from '../components/Comments';
 import React, { Suspense, useEffect } from 'react';
 import { deepOrange } from '@mui/material/colors';
+import { getServerURL } from '../utils/comman';
 
 const LazyComments = React.lazy(() => import('../components/Comments'));
 
@@ -56,7 +57,7 @@ const BlogDetails = () => {
                     >| {new Date(currentBlog.createdDate).toDateString()}</Typography>
                 </Stack>
                 <Divider variant='fullWidth'></Divider>
-                <img src={currentBlog.imageURL} width='100%' height='auto' alt={currentBlog.title} loading='lazy' />
+                <img src={`${getServerURL() + currentBlog.imageURL}`} width='100%' height='auto' alt={currentBlog.title} loading='lazy' />
                 <p style={{ 'textAlign': 'justify' }}>
                     {currentBlog.content}
                 </p>

@@ -8,6 +8,7 @@ import { UserContext } from '../contexts/UserDataContext';
 import { useDispatch } from 'react-redux';
 import { getBlogs } from '../slices/blogSlice';
 const Login = ({ setUserAuthenticated }) => {
+    console.log(process.env.REACT_APP_DEV_SERVER_URL);
     const navigate = useNavigate();
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');

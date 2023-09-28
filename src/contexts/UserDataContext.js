@@ -1,8 +1,10 @@
+import { Backdrop, CircularProgress } from '@mui/material';
 import React, { createContext, useState } from 'react'
 
 export const UserContext = createContext();
 
 const UserDataContext = ({ children }) => {
+    const [open, setloaderOpen] = useState(false);
     const [userInfo, setUserInfo] = useState({
         name: '',
         userName: ''
@@ -11,13 +13,21 @@ const UserDataContext = ({ children }) => {
     //     setUserInfo(param)
     // }
     return (
-        <UserContext.Provider value={{ userInfo, setUserInfo }}>
+        <UserContext.Provider value={{ userInfo, setUserInfo, setloaderOpen }}>
             {children}
-        </UserContext.Provider>
+            <Backdrop
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+            >
+                <CircularProgress color="inherit" />
+            </Backdrop>
+        </UserContext.Provider >
+
 
     )
 }
 
 
 
-export default UserDataContext
+export default UserDataContext;
+

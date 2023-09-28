@@ -1,5 +1,13 @@
 
 
+export const getServerURL = () => {
+    if (process.env.REACT_APP_NODE_ENV === 'production')
+        return process.env.REACT_APP_PROD_SERVER;
+    else {
+        return 'http://localhost:7000';//temp fix
+    }
+}
+
 export const getAccessToken = () => {
     return sessionStorage.getItem('accessToken');
 }

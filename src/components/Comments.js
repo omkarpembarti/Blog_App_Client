@@ -26,7 +26,7 @@ const initialValue = {
 
 const Comments = ({ blog }) => {
     const [newComment, setNewComment] = useState(initialValue);
-    const { userInfo } = useContext(UserContext);
+    const { userInfo, setloaderOpen } = useContext(UserContext);
     const [comments, setComments] = useState([]);
     const dispatch = useDispatch();
 
@@ -39,7 +39,9 @@ const Comments = ({ blog }) => {
     useEffect(() => {
         //API Call
         const getAllComments = async () => {
+            setloaderOpen(true);
             const response = await API.getComments(blog._id);
+            setloaderOpen(false);
             console.log(response);
             setComments(response.data);
         }
@@ -61,8 +63,9 @@ const Comments = ({ blog }) => {
         if (newComment.comment.trim().length === 0) {
             return;
         }
-
+        setloaderOpen(true);
         const response = await API.addComment(newComment);
+        setloaderOpen(false);
         if (response.data.success) {
             dispatch(setOpen({ 'message': response.data.msg }));
             setComments((prevComments) => ([response.data.newComment, ...prevComments]));

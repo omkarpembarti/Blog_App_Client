@@ -1,12 +1,12 @@
 import { Container, Divider, Typography } from '@mui/material'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
 
 
 import { useDispatch, useSelector } from 'react-redux'
 import Blog from '../components/Blog';
-import { API } from '../Services/api';
+
 import { UserContext } from '../contexts/UserDataContext';
-import { addMyBlogs, getMyBlogs } from '../slices/myBlogSlice';
+import { getMyBlogs } from '../slices/myBlogSlice';
 
 const MyBlogs = () => {
 

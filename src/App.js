@@ -1,4 +1,4 @@
-import { CssBaseline, createTheme } from '@mui/material';
+import { Backdrop, CircularProgress, CssBaseline, createTheme } from '@mui/material';
 import { ThemeProvider } from '@emotion/react';
 import { Provider } from 'react-redux';
 import React, { Suspense, lazy, useContext, useEffect, useState } from 'react';
@@ -25,6 +25,7 @@ function App() {
   const { isDarkMode } = useContext(ThemeContext);
   const [online, setOnline] = useState(true);
   const [isUserAuthenticated, setUserAuthenticated] = useState(false);
+
   const themeMode = createTheme({
     palette: {
       mode: isDarkMode ? 'dark' : 'light',
@@ -101,6 +102,7 @@ function App() {
               </Route>
             </Routes>
             <CustomSnackbar></CustomSnackbar>
+
           </UserDataContext>
         </ThemeProvider>
       </Provider>
