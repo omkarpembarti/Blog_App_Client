@@ -12,7 +12,8 @@ export const getMyBlogs = createAsyncThunk(
     });
 
 const initialState = {
-    myBlogs: []
+    myBlogs: [],
+    loading: false
 }
 
 const myblogSlice = createSlice({
@@ -43,13 +44,18 @@ const myblogSlice = createSlice({
             return initialState;
         }
     }, 'extraReducers': {
-        [getMyBlogs.pending]: (state) => { },
+        [getMyBlogs.pending]: (state) => {
+            state.loading = true;
+        },
 
         [getMyBlogs.fulfilled]: (state, { payload }) => {
             console.log(payload);
             state.myBlogs = payload.data;
+            state.loading = false;
         },
-        [getMyBlogs.rejected]: (state) => { },
+        [getMyBlogs.rejected]: (state) => {
+            state.loading = false;
+        },
     },
 
 });

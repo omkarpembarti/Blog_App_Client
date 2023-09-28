@@ -12,11 +12,13 @@ const MyBlogs = () => {
 
     const { userInfo } = useContext(UserContext);
     const dispatch = useDispatch();
-    const { myBlogs } = useSelector((state) => state.myBlogSlice);
+    const { myBlogs, loading } = useSelector((state) => state.myBlogSlice);
+
     useEffect(() => {
         if (myBlogs.length === 0) {
             dispatch(getMyBlogs(userInfo));
         }
+        // eslint-disable-next-line
     }, []);
 
     return (
@@ -33,15 +35,18 @@ const MyBlogs = () => {
                 <Typography variant='h2' sx={{ fontWeight: 'bold', width: '100%' }}>My Blogs</Typography>
 
                 {
-                    (myBlogs.length !== 0) && (
-                        myBlogs.map((blog, index) =>
-                            <Blog
-                                {...blog}
-                                key={blog._id}
-                            />
+                    loading ? <>Loading...</> : <>{
+                        (myBlogs.length === 0) ? <>No Blogs</> : (
+                            myBlogs.map((blog, index) =>
+                                <Blog
+                                    {...blog}
+                                    key={blog._id}
+                                />
+                            )
                         )
-                    )
+                    }</>
                 }
+
 
             </Container>
         </>

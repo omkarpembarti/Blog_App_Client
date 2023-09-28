@@ -1,12 +1,13 @@
 
 
 import { Button, TextField, Typography } from '@mui/material'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import HocCredentialContainer from '../components/HocCredentialContainer'
 import { useNavigate } from 'react-router';
 import { API } from '../Services/api';
 import { useDispatch } from 'react-redux';
 import { setOpen } from '../slices/snackbarSlice';
+import { UserContext } from '../contexts/UserDataContext';
 
 const Register = () => {
 
@@ -14,9 +15,12 @@ const Register = () => {
     const [name, setName] = useState('');
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
+    const { setloaderOpen } = useContext(UserContext);
     const dispatch = useDispatch();
     const onSignUpClick = async () => {
+        setloaderOpen(true);
         let response = await API.userRegister({ name, userName, password });
+        setloaderOpen(false);
         if (response.data.success) {
             dispatch(setOpen({ 'message': response.data.msg, 'severity': 'info' }));
             dispatch(setOpen({ 'message': "Routing to Login Screen", 'severity': 'info' }));
