@@ -52,7 +52,7 @@ const Comments = ({ blog }) => {
         const text = e.target.value;
         setNewComment((prevState) => ({
             ...prevState, 'comment': text, 'postID': blog._id,
-            'name': userInfo.name
+            'name': userInfo.userName
         }));
     }
     const handleClearBtnClick = () => {
