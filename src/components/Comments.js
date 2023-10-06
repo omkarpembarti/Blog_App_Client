@@ -42,7 +42,7 @@ const Comments = ({ blog }) => {
             setloaderOpen(true);
             const response = await API.getComments(blog._id);
             setloaderOpen(false);
-            console.log(response);
+
             setComments(response.data);
         }
         getAllComments()

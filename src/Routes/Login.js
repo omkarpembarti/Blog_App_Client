@@ -32,7 +32,7 @@ const Login = ({ setUserAuthenticated }) => {
         setloaderOpen(true);
         signInWithEmailAndPassword(auth, email, password)
             .then((response) => {
-                console.log(response);
+
                 setUserNameError(false);
                 setPasswordError(false);
                 setUserAuthenticated(true);

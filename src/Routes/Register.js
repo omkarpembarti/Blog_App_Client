@@ -10,6 +10,7 @@ import { setOpen } from '../slices/snackbarSlice';
 import { UserContext } from '../contexts/UserDataContext';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase';
+import { getBlogs } from '../slices/blogSlice';
 
 const Register = ({ setUserAuthenticated }) => {
 
@@ -17,7 +18,7 @@ const Register = ({ setUserAuthenticated }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { setloaderOpen } = useContext(UserContext);
+    const { setloaderOpen, setUserInfo } = useContext(UserContext);
     const dispatch = useDispatch();
 
 
@@ -43,13 +44,11 @@ const Register = ({ setUserAuthenticated }) => {
                     'displayName': name
                 });
                 setUserAuthenticated(true);
+                setUserInfo({ 'userName': user.displayName });
+                sessionStorage.setItem('accessToken', `Bearer ${user.accessToken}`);
+                dispatch(getBlogs());
                 navigate('/');
-                // if (response.data.success) {
-                //     dispatch(setOpen({ 'message': response.data.msg, 'severity': 'info' }));
-                //     dispatch(setOpen({ 'message': "Routing to Login Screen", 'severity': 'info' }));
-                //     navigate('/login');
-                // }
-                // console.log(response);
+
             })
             .catch((err) => {
                 console.log('createUserWithEmailAndPassword-->', err);

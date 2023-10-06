@@ -4,10 +4,10 @@ export const getServerURL = () => {
     // if (process.env.REACT_APP_NODE_ENV === 'production')
     //     return process.env.REACT_APP_PROD_SERVER;
     // else {
-    //     return 'http://localhost:7000';//temp fix
+    return 'http://localhost:7000';//temp fix
     // }
     //Temporary Fix
-    return 'https://mern-blog-api-je73.onrender.com';
+    //return 'https://mern-blog-api-je73.onrender.com';
 }
 
 export const getAccessToken = () => {
