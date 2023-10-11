@@ -18,6 +18,7 @@ import EditBlog from './components/EditBlog';
 import WifiIcon from '@mui/icons-material/Wifi';
 import WifiOffIcon from '@mui/icons-material/WifiOff';
 import { auth } from './firebase';
+import { signOut } from 'firebase/auth';
 const LazyNewBlog = lazy(() => import('./components/NewBlog'));
 
 function App() {
@@ -73,7 +74,18 @@ function App() {
       });
       window.addEventListener('online', () => {
         setOnline(true);
-      })
+
+      });
+
+      signOut(auth)
+        .then(() => {
+          sessionStorage.setItem('accessToken', '');
+          setUserAuthenticated(false);
+        })
+        .catch(err => {
+        })
+        .finally(() => {
+        })
     }
   }, [])
 
